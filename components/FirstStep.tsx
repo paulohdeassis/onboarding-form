@@ -1,40 +1,25 @@
-import React from 'react'
+import React, { useContext, useDeferredValue } from 'react'
 import { z } from 'zod'
-import useMultistepForm from '@/hooks/useMulitstepForm'
-import { useFetch } from '@/hooks/useFecth'
-
-
+import { userData } from '@/app/page'
 // o envet handler não está funcionando,
 // pra ir para o próximo passo preciso passar o index do step para o contexto
 // lidar com o contexto no hook de form 
 
-const FirstStep = () => {
-  // const handleClick = (e) => {
-  //   window.alert('teste')
-  //   e.preventDefault
-  //   console.log(userEmail)
-  //   const data = useFetch(userEmail)
-  //   console.log(data)
-  // }
- 
-const schema  = z.string()
-let userEmail = '1'
+
+type firstStepProps = userData & {
+  updateFields: (fields: Partial<userData>) => void
+}
+
+const FirstStep = ({ updateFields }: firstStepProps) => { 
+const schema  = z.string().email()
 
 
     return (
     <>
         <h2 className='text-black'> teste</h2>
-        <label className='text-black' htmlFor="email">
-          <input className='border-2 border-black' value={userEmail} autoFocus  onChange={(e)=>{
-            userEmail = e.target.value
-          }} id='email' type='email'></input>
+        <label htmlFor="email"> 
+          <input className='border-2 border-black' autoFocus placeholder='Your Email Adress'  name='email'  type='email'   onChange={e => updateFields({ userEmail: e.target.value })} />
         </label>
-
-        <button type='submit' onClick={(e)=>{
-          window.alert('teste')
-        }}>
-          teste
-        </button>
     </>
   )
 }
