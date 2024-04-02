@@ -14,12 +14,13 @@ import { Alert, AlertTitle, AlertDescription } from './ui/alert'
  
 
 const formSchema = z.object({
-  userId: z.string().min(3).optional(),
+  userName: z.string().min(3).optional(),
   userEmail:z.string().email().optional(),
   mgEmail: z.string().email().regex(new RegExp(".+@mgmarketingagency\.com"),).optional(),
   instagramUrl: z.string().regex(new RegExp("^https:\/\/www\.instagram\.com\/.*$"),).optional(),
-  userNiche: z.string().optional(),
-  phoneNumber: z.string().optional()
+  userNiche: z.enum(['Car Dealerships', 'Cosmetic Procedures', 'Dentists', 'Ecommerce', 'Insurance Brokers',
+  'Plastic Surgeons', 'Real State Agents', 'Digital Marketing (Generic)']).optional(),
+  phoneNumber: z.string().regex(new RegExp("^[0-9]*$")).optional()
 
 })
 
@@ -41,9 +42,10 @@ const { steps, step, currerntStep, next, back } = useMultistepForm(formSteps);
             back
           </button> : ''}
           <button className='text-red' onClick={() => {
-            if(formSchema.safeParse({userEmail: formData.userEmail}).success === true){
+            // if(formSchema.safeParse({userEmail: formData.userEmail}).success === true){
               return next()
-            }
+            // }
+            // return 
           }} type='button'>next</button>
       </div>
   </form>

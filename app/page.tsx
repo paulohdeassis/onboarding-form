@@ -3,6 +3,7 @@
 import Form from "@/components/Form";
 import FirstStep from "@/components/FirstStep";
 import SecondStep from "@/components/SecondStep";
+import ThirdStep from "@/components/ThirdStep";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useState } from "react";
 import { userData } from "@/components/Form";
@@ -10,11 +11,11 @@ import { userData } from "@/components/Form";
 
 
 const formData: userData = {
-  userId: '',
+  userName: '',
   userEmail: '',
   mgEmail: '',
   instagramUrl: '',
-  userNiche: '',
+  userNiche: 'Digital Marketing (Generic)',
   phoneNumber: ''
 }
 
@@ -34,11 +35,12 @@ export default function Home() {
   
       <QueryClientProvider client={queryCLient}>
           <main className="bg-main-purple text-white grid content-center gap-4">
-            <section className="max-w-20 grid content-center">
+            <section className="grid content-center">
               <h1>Wellcome Aboard!</h1>
               <Form formSteps ={[
                 <FirstStep  updateFields={updateFields} />,
-                <SecondStep updateFields={updateFields} userEmail={data.userEmail}/>        
+                <SecondStep updateFields={updateFields} userEmail={data.userEmail}/>,    
+                <ThirdStep updateFields={updateFields}  mgEmail={data.mgEmail} />
               ]}
               formData={data}
               />

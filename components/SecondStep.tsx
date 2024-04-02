@@ -1,6 +1,8 @@
 import React from 'react'
 import { useFetch } from '@/hooks/useFecth'
-import { userData } from '@/app/page'
+import { userData } from './Form'
+import { Label } from './ui/label'
+import { Input } from './ui/input'
 
 type SecondStepProps = userData & {
   updateFields: (fields: Partial<userData>) => void
@@ -12,11 +14,18 @@ const SecondStep = ({userEmail, updateFields}: SecondStepProps) => {
   return (
     <div>
       {data?.data[0]}
-      <label className='block' htmlFor="userName">
-        Your Name
-          <input className='border-solid border-2 border-black block' name='userName' type='text' onChange={e => updateFields({ userName: e.target.value})}>
-          </input>
-      </label>
+      <Label className='block' htmlFor="userName">
+        Your Name*
+          <Input name='userName' placeholder='John Doe' type='text' onChange={e => updateFields({ userName: e.target.value})} />
+          <p>First and last name, just as you put it on your registration.</p>
+      </Label>
+
+      <Label htmlFor="phoneNumber">
+        Email Address*
+        <Input type="text" placeholder='(999) 999-9999'
+          onChange={e => updateFields({ phoneNumber: e.target.value})} />
+        <p>Include your country and area code, make sure to only inlcude the numbers</p>
+      </Label>
     </div>
   )
 }
